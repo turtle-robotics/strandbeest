@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+#import statements
 import odrive
 from odrive.enums import *
 
@@ -23,6 +23,7 @@ y_axis = 0
 
 vel_scale = 100
 
+#controller deadzones
 def dead_band(left, right, left_dead, right_dead):
     if abs(left) <= left_dead:
         left = 0
