@@ -1,0 +1,13 @@
+[Unit]
+Description=beest
+Wants=network.target
+
+[Service]
+Type=simple
+ExecStart=/home/pi/startup.sh
+Restart=on-failure
+RestartSec=10
+KillMode=mixed
+
+[Install]
+WantedBy=multi-user.target
