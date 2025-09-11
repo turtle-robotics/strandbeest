@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+#import statements
 import odrive
 from odrive.enums import *
 
@@ -90,6 +91,7 @@ def drive_0(odrv0):
     drive_axis(odrv0.axis0, 0)
     drive_axis(odrv0.axis1, 0)
 
+#drive function
 def drive(odrv0):
     global x_axis
     global y_axis
@@ -133,6 +135,7 @@ pygame.joystick.init()
 js1 = None
 
 #try again (y/n)
+#while loop for checking controller connection (INVESTIGATE THIS AS POSSIBLE CAUSE FOR CONTROLLER PROBLEM)
 while (not controller_connected):
     try:
         js1 = pygame.joystick.Joystick(int(os.environ.get('CRONCH', '0')))
@@ -203,6 +206,7 @@ if __name__ == '__main__':
         t0 = t1
     #cleans up GPIO pins on exit
     cleanup()
+
 
 
 #exit 
