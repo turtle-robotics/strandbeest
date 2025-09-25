@@ -134,6 +134,25 @@ pygame.joystick.init()
 
 js1 = None
 
+while not controller_connected:
+    try:
+        #refresh joystick detection each time through the loop
+        pygame.joystick.quit()
+        pygame.joystick.init()
+        
+        jcount = pygame.joystick.get_count()
+        if jcount > 0:
+            js1 = pygame.joystick.Joystick(0) #first joystick
+            js1.init()
+            print('controller connected: ' + str(js1.get_name()))
+            controller_connected = True
+        else:
+            print('No controller found, retrying...')
+    except Exception as e:
+        print('Error checking controller:', e)
+    time.sleep(1) #wait 1 second before retrying
+
+"""
 #try again (y/n)
 #while loop for checking controller connection (INVESTIGATE THIS AS POSSIBLE CAUSE FOR CONTROLLER PROBLEM)
 while (not controller_connected):
@@ -144,7 +163,7 @@ while (not controller_connected):
         controller_connected = True
     except:
         print('No controller found')
-        continue
+        continue"""
 
 
 def get_joy():
