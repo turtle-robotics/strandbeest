@@ -49,7 +49,10 @@ def cleanup():
 
 # Helper function to convert angle (0-180) to duty cycle
 def angle_to_duty_cycle(angle):
-    return 2.5 + (angle / 18.0)  # Rough mapping for SG90
+    #servo cannot rotate a full 180, so we go based on the duty cycle
+    # angle / 18.0 + 2.5 - original code
+    return 2.5 + (angle / 18.0) # Rough mapping for SG90
+        
 
 def dead_band(left, right, left_dead, right_dead):
     if abs(left) <= left_dead:
@@ -113,10 +116,12 @@ def drive(odrv0):
 def drive_axis(axis, val):
     if abs(val) < 0.001:
         # print("IDLE")
-        axis.requested_state = 1
+        axis.requested_state = 1 #idle state
         axis.config.general_lockin.ramp_distance = 0
     else:
         axis.config.general_lockin.vel = vel_scale * scale(val)
+        # requested_state = 3 = motor configuration; 4 = encoder configuration
+        # 9 = commands motor to enter axis_state_closed_loop_control state
         axis.requested_state = 9
         axis.config.general_lockin.ramp_distance = -1
 
@@ -165,7 +170,7 @@ while (not controller_connected):
         print('No controller found')
         continue"""
 
-
+#this code is for head movement
 def get_joy():
     #check for button press and update global "head" variable (default false)
     head = False
