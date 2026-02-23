@@ -191,13 +191,35 @@ def get_joy():
 
 
 if __name__ == '__main__':
+    # initial print statements
+    print("ROBOT CONTROL STARTING")
+    print("-" * 40) # barrier
     #check odrive connections
     try:
+        print("Searching for ODrive...")
         odrv0 = odrive.find_any()
         print("Odrive Found")
+        print("Serial Number:", odrv0.serial_number)
+        print("Firmware version:", odrv0.fw_version_major, ".", odrv0.fw_version_minor)
     except:
         print("No odrive found :(")
+        # might add this just to see what happens
+        # cleanup()
+        # exit(1)
     #check odrive errors
+    # check for existing errors before clearing
+        print("\nChecking for existing errors...")
+        print("Axis 0 error:", hex(odrv0.axis0.error))
+        print("Axis 1 error:", hex(odrv0.axis1.error))
+        # if errors, show details
+        if (odrv0.axis.error !=0):
+            print("Axis 0 error details")
+            odrv0.dump_errors(odrv0.axis0)
+        if (odrv0.axis.error !=0):
+            print("Axis 1 error details")
+            odrv0.dump_errors(odrv0.axis1)
+
+    #added the above stuff ^^
     try:
         odrv0.clear_errors() # could possibly be bad
         print("No errors Found :)")
@@ -205,31 +227,136 @@ if __name__ == '__main__':
         print("Error found :(")
         odrv0.dump_errors()
 
+    # added this config stuff
     config_axis(odrv0.axis0)
     config_axis(odrv0.axis1)
 
+    print("\nConfiguration:")
+    print("Bus Voltage:", odrv0.vbus_voltage, "V")
+    print("Axis 0 Current Limit:", odrv0.axis0.motor.config.current_lim, "A")
+    print("Axis 1 Current Limit:", odrv0.axis1.motor.config.current_lim, "A")
+    print("Velocity Scale:", vel_scale)
+    print("Acceleration:", odrv0.axis0.config.general_lockin.accel)
+    print("\nStarting main loop.....")
+
     #print(odrv0)
+
+    # added this
+    loop_count = 0
+    last_error_check = time.time()
+    last_status_print = time.time()
+    error_count = 0
 
     #check time delays later good for now
     t0 = 1000 * time.monotonic()
-    while True:
-        x_axis, y_axis, estop, head = get_joy()
-        t1 = 1000 * time.monotonic()
 
-        # drive(odrv0, x_axis, y_axis)
-        if enabled:
-            if head:
-                move_head(step = 5)
-            drive(odrv0)
-        else:
-            drive_0(odrv0)
+    #added this try, except except, finally
+    try:
+        while True:
+            #added this
+            loop_count += 1
+            current_time = time.time()
 
-        # time.sleep(0.001 * max(0, 20-(t1-t0)))
-        time.sleep(0.05)
+            x_axis, y_axis, estop, head = get_joy()
+            t1 = 1000 * time.monotonic()
 
-        t0 = t1
-    #cleans up GPIO pins on exit
-    cleanup()
+            # added this: print status every 3 seconds
+            if current_time - last_status_print > 3.0:
+                print("Status -> Loop:", loop_count, "| Voltage:", odrv0.vbus.voltage,
+                  "|Errors:", error_count)
+                last_status_print = current_time
+            # added this: checks for errors every 0.5 sec
+            if current_time - last_error_check > 0.5:
+                axis0_err = odrv0.axis0.error
+                axis1_err = odrv0.axis1.error
+                if axis0_err != 0 or axis1_err != 0:
+                    error_count += 1
+                    print("\nError detected at", time.strftime('%H:%M:%S'))
+                    print("\n")
+                    if axis0_err != 0:
+                        print("\nAXIS 0 ERROR")
+                        print("Error Code:", hex(axis0_err))
+                        print("Motor Error:", hex(odrv0.axis0.motor.error))
+                        print("Encoder Error:", hex(odrv0.axis0.encoder.error))
+                        print("Current State:", odrv0.axis0.current_state)
+                        print("Requested Velocity:", odrv0.axis0.config.general_lockin.vel)
+                        print("Bus Voltage:", odrv0.vbus_voltage, "V")
+
+                        # added this - decoding common errors
+                        if axis0_err & 0x00000008:
+                            print("  -> MISSING_ESTIMATE (LOCKIN lost sync)")
+                        if axis0_err & 0x00000800:
+                            print("  -> CURRENT_LIMIT_VIOLATION")
+                        if axis0_err & 0x00000200:
+                            print("  -> DC_BUS_OVER_CURRENT")
+                        if axis0_err & 0x00000100:
+                            print("  -> DC_BUS_UNDER_VOLTAGE")
+                        if axis0_err & 0x00004000:
+                            print("  -> VELOCITY_LIMIT_VIOLATION")
+                        
+                        print("\nFull error dump:")
+                        odrv0.dump_errors(odrv0.axis0)
+                    if axis1_err != 0:
+                        print("\nAXIS 1 ERROR")
+                        print("Error Code:", hex(axis1_err))
+                        print("Motor Error:", hex(odrv0.axis1.motor.error))
+                        print("Encoder Error:", hex(odrv0.axis1.encoder.error))
+                        print("Current State:", odrv0.axis1.current_state)
+                        print("Requested Velocity:", odrv0.axis1.config.general_lockin.vel)
+                        print("Bus Voltage:", odrv0.vbus_voltage, "V")
+                        
+                        # Decode common errors
+                        if axis1_err & 0x00000008:
+                            print("  -> MISSING_ESTIMATE (LOCKIN lost sync)")
+                        if axis1_err & 0x00000800:
+                            print("  -> CURRENT_LIMIT_VIOLATION")
+                        if axis1_err & 0x00000200:
+                            print("  -> DC_BUS_OVER_CURRENT")
+                        if axis1_err & 0x00000100:
+                            print("  -> DC_BUS_UNDER_VOLTAGE")
+                        if axis1_err & 0x00004000:
+                            print("  -> VELOCITY_LIMIT_VIOLATION")
+                        
+                        print("\nFull error dump:")
+                        odrv0.dump_errors(odrv0.axis1)
+                        # added this too
+                        print("Clearing errors and continuing...")
+
+                        # stop motors before clearing
+                        drive_0(odrv0)
+                        time.sleep(0.2)
+                        odrv0.clear_errors()
+                        config_axis(odrv0.axis0)
+                        config_axis(odrv0.axis1)
+                    last_error_check = current_time
+            # drive(odrv0, x_axis, y_axis)
+            if enabled:
+                if head:
+                    # wrong head? change to head1 if it persists
+                    move_head(step = 5)
+                drive(odrv0)
+            else:
+                drive_0(odrv0)
+
+            # time.sleep(0.001 * max(0, 20-(t1-t0)))
+            time.sleep(0.05)
+
+            t0 = t1
+    #added all this
+    except KeyboardInterrupt:
+        print("\n\nCtrl C pressed - shutting down")
+        print("Total errors enountered:", error_count)
+    except Exception as e:
+        print("\n\nFatal error", e)
+        import traceback
+        traceback.print_exc()
+    finally:
+        print("\nStopping motors...")
+        drive_0(odrv0)
+        time.sleep(0.1)
+        #cleans up GPIO pins on exit - kept
+        cleanup()
+        print("Shutdown complete")
 
 
 
