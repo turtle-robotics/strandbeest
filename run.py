@@ -3,6 +3,7 @@
 #import statements
 import odrive
 from odrive.enums import *
+from odrive.utils import dump_errors #added this - lorenzo 3/27
 
 import logging
 import time
@@ -10,6 +11,10 @@ import time
 import threading
 
 import os
+
+import numpy as np
+import sounddevice as sd
+#print(sd.query_devices())
 
 import pygame
 import RPi.GPIO as GPIO
@@ -214,10 +219,10 @@ if __name__ == '__main__':
         # if errors, show details
         if (odrv0.axis.error !=0):
             print("Axis 0 error details")
-            odrv0.dump_errors(odrv0.axis0)
+            dump_errors(odrv0) #had to change this for debug, will fix later. dump_errors(odrv0) doesnt take an axis as an object. lorenzo - 3/27
         if (odrv0.axis.error !=0):
             print("Axis 1 error details")
-            odrv0.dump_errors(odrv0.axis1)
+            dump_errors(odrv0) #had to change this for debug, will fix later. dump_errors(odrv0) doesnt take an axis as an object. lorenzo - 3/27
 
     #added the above stuff ^^
     try:
@@ -225,7 +230,7 @@ if __name__ == '__main__':
         print("No errors Found :)")
     except:
         print("Error found :(")
-        odrv0.dump_errors()
+        dump_errors(odrv0) #had to change this for debug, will fix later. lorenzo - 3/27
 
     # added this config stuff
     config_axis(odrv0.axis0)
@@ -262,7 +267,7 @@ if __name__ == '__main__':
 
             # added this: print status every 3 seconds
             if current_time - last_status_print > 3.0:
-                print("Status -> Loop:", loop_count, "| Voltage:", odrv0.vbus.voltage,
+                print("Status -> Loop:", loop_count, "| Voltage:", odrv0.vbus_voltage,
                   "|Errors:", error_count)
                 last_status_print = current_time
             # added this: checks for errors every 0.5 sec
@@ -295,7 +300,7 @@ if __name__ == '__main__':
                             print("  -> VELOCITY_LIMIT_VIOLATION")
                         
                         print("\nFull error dump:")
-                        odrv0.dump_errors(odrv0.axis0)
+                        dump_errors(odrv0) #had to change this for debug, will fix later. dump_errors(odrv0) doesnt take an axis as an object. lorenzo - 3/27
                     if axis1_err != 0:
                         print("\nAXIS 1 ERROR")
                         print("Error Code:", hex(axis1_err))
@@ -318,7 +323,7 @@ if __name__ == '__main__':
                             print("  -> VELOCITY_LIMIT_VIOLATION")
                         
                         print("\nFull error dump:")
-                        odrv0.dump_errors(odrv0.axis1)
+                        dump_errors(odrv0) #had to change this for debug, will fix later. dump_errors(odrv0) doesnt take an axis as an object. lorenzo - 3/27
                         # added this too
                         print("Clearing errors and continuing...")
 
@@ -357,6 +362,9 @@ if __name__ == '__main__':
         #cleans up GPIO pins on exit - kept
         cleanup()
         print("Shutdown complete")
+
+
+
 
 
 
