@@ -33,6 +33,24 @@ vel_scale = 100
 #jaw angle
 current_angle = 90
 
+#added logging stuff - allison 04/10/26
+LOG_DIR = "logs"
+os.makedir(LOG_DIR, exist_ok=True) # makes directory
+LOG_FILE = os.path.join(LOG_DIR, f"beest_run_{time.strftime('%Y%m%d_%H%M%S')}.log")
+#adds a new file every time so there's no overwriting
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s | %(levelname)s | %(message)s",
+    handlers=[
+        logging.FileHandler(LOG_FILE),
+        logging.StreamHandler()
+    ]
+)
+logger = logging.getLogger(__name__)
+# end of logging code
+
+
+
 # Servo pin setup (BCM mode)
 SERVO_PIN = 26  # Use any PWM-capable GPIO pin, like 12, 13, 18, or 19
 #try 18 first then 12 if 18 does not work
@@ -51,6 +69,7 @@ def cleanup():
     pwm.stop()
     GPIO.cleanup()
     print("GPIO cleaned up. Exiting.")
+    logger.info("GPIO cleaned up. Exiting.")
 
 # Helper function to convert angle (0-180) to duty cycle
 def angle_to_duty_cycle(angle):
@@ -82,14 +101,17 @@ def move_head1(step=1, min_angle=0):
     else:
         current_angle = min_angle
     print("Head is moving")
+    logger.info("Head is moving")
     duty = angle_to_duty_cycle(current_angle)
     print("Duty: ", duty)
+    logger.info("Duty: ", duty)
     pwm.ChangeDutyCycle(duty)
     try:
         time.sleep(0.1)  # Let the servo move
         pwm.ChangeDutyCycle(0)  # Avoid jitter
     except:
         print("pwm fail")
+        logger.exception("pwm fail")
 
 
 
@@ -116,7 +138,9 @@ def drive(odrv0):
     drive_axis(odrv0.axis0, right)
     drive_axis(odrv0.axis1, -1 * left)
     print("DRIVE RIGHT ", right)
+    logger.info("DRIVE RIGHT ", right)
     print("DRIVE LEFT ", -1 * left)
+    logger.info("DRIVE LEFT ", -1 * left)
 
 
 def drive_axis(axis, val):
@@ -156,11 +180,14 @@ while not controller_connected:
             js1 = pygame.joystick.Joystick(0) #first joystick
             js1.init()
             print('controller connected: ' + str(js1.get_name()))
+            logger.info('controller connected: ' + str(js1.get_name()))
             controller_connected = True
         else:
             print('No controller found, retrying...')
+            logger.warning('No controller found, retrying...')
     except Exception as e:
         print('Error checking controller:', e)
+        logger.exception('Error checking controller:', e)
     time.sleep(1) #wait 1 second before retrying
 
 """
@@ -186,6 +213,7 @@ def get_joy():
             head = True
             #delete later
             print("Head button pressed")
+            logger.info("Head button pressed")
         #delete later (just to check for joystick button capability)
     pygame.event.pump()
     x_axis = js1.get_axis(2) # right stick x
@@ -195,42 +223,79 @@ def get_joy():
 
     return (x_axis, y_axis, estop, head)
 
+#--------SHUTDOWN LOG - Allison 04/10/2026-------
+def write_shutdown_log(odrv0, loop_count, error_count):
+    logger.info("="*50)
+    logger.info("BEEST SHUTDOWN LOG")
+    logger.info(f"Total loops: {loop_count}")
+    logger.info(f"Total errors: {error_count}")
+    logger.info(f"Final x_axis: {x_axis}")
+    logger.info(f"Final y-axis: {y_axis}")
+    logger.info(f"Final head angle: {current_angle}")
+    if odrv0 is not None:
+        try:
+            logger.info(f"Final bus voltage: {odrv0.vbus_voltage} V")
+            logger.info(f"Final Axis 0 error: {hex(odrv0.axis0.error)}")
+            logger.info(f"Final Axis 1 error: {hex(odrv0.axis1.error)}")
+            logger.info(f"Final Axis 0 state: {odrv0.axis0.current_state}")
+            logger.info(f"Final Axis 1 state: {odrv0.axis1.current_state}")
+        except Exception as e:
+            logger.exception(f"Could not write final ODrive state: {e}")
+    else:
+        logger.warning("ODrive was not available during shutdown log")
+
+    logger.info(f"Log file saved to: {LOG_FILE}")
+    logger.info("=" * 50)
+#--------------end shutdown logging function
 
 if __name__ == '__main__':
     # initial print statements
     print("ROBOT CONTROL STARTING")
     print("-" * 40) # barrier
+    logger.info("ROBOT CONTROL STARTING")
     #check odrive connections
     try:
         print("Searching for ODrive...")
+        logger.info("Searching for ODrive...")
         odrv0 = odrive.find_any()
         print("Odrive Found")
+        logger.info("Odrive Found")
         print("Serial Number:", odrv0.serial_number)
+        logger.info("Serial Number:", odrv0.serial_number)
         print("Firmware version:", odrv0.fw_version_major, ".", odrv0.fw_version_minor)
+        logger.info("Firmware version:", odrv0.fw_version_major, ".", odrv0.fw_version_minor)
     except:
         print("No odrive found :(")
+        logger.exception("No odrive found :(")
         # might add this just to see what happens
         # cleanup()
         # exit(1)
     #check odrive errors
     # check for existing errors before clearing
         print("\nChecking for existing errors...")
+        logger.info("Checking for existing errors...")
         print("Axis 0 error:", hex(odrv0.axis0.error))
         print("Axis 1 error:", hex(odrv0.axis1.error))
+        logger.info(f"Axis 0 error: {hex(odrv0.axis0.error)}")
+        logger.info(f"Axis 1 error: {hex(odrv0.axis1.error)}")
         # if errors, show details
         if (odrv0.axis.error !=0):
             print("Axis 0 error details")
+            logger.error("Axis 0 error details")
             dump_errors(odrv0) #had to change this for debug, will fix later. dump_errors(odrv0) doesnt take an axis as an object. lorenzo - 3/27
         if (odrv0.axis.error !=0):
             print("Axis 1 error details")
+            logger.error("Axis 0 error details")
             dump_errors(odrv0) #had to change this for debug, will fix later. dump_errors(odrv0) doesnt take an axis as an object. lorenzo - 3/27
 
     #added the above stuff ^^
     try:
         odrv0.clear_errors() # could possibly be bad
         print("No errors Found :)")
+        logger.error("Axis 0 error details")
     except:
         print("Error found :(")
+        logger.error("Axis 0 error details")
         dump_errors(odrv0) #had to change this for debug, will fix later. lorenzo - 3/27
 
     # added this config stuff
@@ -244,6 +309,14 @@ if __name__ == '__main__':
     print("Velocity Scale:", vel_scale)
     print("Acceleration:", odrv0.axis0.config.general_lockin.accel)
     print("\nStarting main loop.....")
+    
+    logger.info("Configuration:")
+    logger.info(f"Bus Voltage: {odrv0.vbus_voltage} V")
+    logger.info(f"Axis 0 Current Limit: {odrv0.axis0.motor.config.current_lim} A")
+    logger.info(f"Axis 1 Current Limit: {odrv0.axis1.motor.config.current_lim} A")
+    logger.info(f"Velocity Scale: {vel_scale}")
+    logger.info(f"Acceleration: {odrv0.axis0.config.general_lockin.accel}")
+    logger.info("Starting main loop.....")
 
     #print(odrv0)
 
@@ -279,6 +352,7 @@ if __name__ == '__main__':
                     error_count += 1
                     print("\nError detected at", time.strftime('%H:%M:%S'))
                     print("\n")
+                    logger.error(f"Error detected at {time.strftime('%H:%M:%S')}")
                     if axis0_err != 0:
                         print("\nAXIS 0 ERROR")
                         print("Error Code:", hex(axis0_err))
@@ -287,20 +361,36 @@ if __name__ == '__main__':
                         print("Current State:", odrv0.axis0.current_state)
                         print("Requested Velocity:", odrv0.axis0.config.general_lockin.vel)
                         print("Bus Voltage:", odrv0.vbus_voltage, "V")
+                        
+                        logger.error("AXIS 0 ERROR")
+                        logger.error(f"Error Code: {hex(axis0_err)}")
+                        logger.error(f"Motor Error: {hex(odrv0.axis0.motor.error)}")
+                        logger.error(f"Encoder Error: {hex(odrv0.axis0.encoder.error)}")
+                        logger.error(f"Current State: {odrv0.axis0.current_state}")
+                        logger.error(f"Requested Velocity: {odrv0.axis0.config.general_lockin.vel}")
+                        logger.error(f"Bus Voltage: {odrv0.vbus_voltage} V")
+                        
+                        
 
                         # added this - decoding common errors
                         if axis0_err & 0x00000008:
                             print("  -> MISSING_ESTIMATE (LOCKIN lost sync)")
+                            logger.error("  -> MISSING_ESTIMATE (LOCKIN lost sync)")
                         if axis0_err & 0x00000800:
                             print("  -> CURRENT_LIMIT_VIOLATION")
+                            logger.error("  -> CURRENT_LIMIT_VIOLATION")
                         if axis0_err & 0x00000200:
                             print("  -> DC_BUS_OVER_CURRENT")
+                            logger.error("  -> DC_BUS_OVER_CURRENT")
                         if axis0_err & 0x00000100:
                             print("  -> DC_BUS_UNDER_VOLTAGE")
+                            logger.error("  -> DC_BUS_UNDER_VOLTAGE")
                         if axis0_err & 0x00004000:
                             print("  -> VELOCITY_LIMIT_VIOLATION")
+                            logger.error("  -> DC_BUS_UNDER_VOLTAGE")
                         
                         print("\nFull error dump:")
+                        logger.error("  -> DC_BUS_UNDER_VOLTAGE")
                         dump_errors(odrv0) #had to change this for debug, will fix later. dump_errors(odrv0) doesnt take an axis as an object. lorenzo - 3/27
                     if axis1_err != 0:
                         print("\nAXIS 1 ERROR")
@@ -311,22 +401,37 @@ if __name__ == '__main__':
                         print("Requested Velocity:", odrv0.axis1.config.general_lockin.vel)
                         print("Bus Voltage:", odrv0.vbus_voltage, "V")
                         
+                        logger.error("AXIS 1 ERROR")
+                        logger.error(f"Error Code: {hex(axis1_err)}")
+                        logger.error(f"Motor Error: {hex(odrv0.axis1.motor.error)}")
+                        logger.error(f"Encoder Error: {hex(odrv0.axis1.encoder.error)}")
+                        logger.error(f"Current State: {odrv0.axis1.current_state}")
+                        logger.error(f"Requested Velocity: {odrv0.axis1.config.general_lockin.vel}")
+                        logger.error(f"Bus Voltage: {odrv0.vbus_voltage} V")
+                        
                         # Decode common errors
                         if axis1_err & 0x00000008:
                             print("  -> MISSING_ESTIMATE (LOCKIN lost sync)")
+                            logger.error("  -> MISSING_ESTIMATE (LOCKIN lost sync)")
                         if axis1_err & 0x00000800:
                             print("  -> CURRENT_LIMIT_VIOLATION")
+                            logger.error("  -> CURRENT_LIMIT_VIOLATION")
                         if axis1_err & 0x00000200:
                             print("  -> DC_BUS_OVER_CURRENT")
+                            logger.error("  -> DC_BUS_OVER_CURRENT")
                         if axis1_err & 0x00000100:
                             print("  -> DC_BUS_UNDER_VOLTAGE")
+                            logger.error("  -> DC_BUS_UNDER_VOLTAGE")
                         if axis1_err & 0x00004000:
                             print("  -> VELOCITY_LIMIT_VIOLATION")
+                            logger.error("  -> VELOCITY_LIMIT_VIOLATION")
                         
                         print("\nFull error dump:")
+                        logger.error("Full error dump:")
                         dump_errors(odrv0) #had to change this for debug, will fix later. dump_errors(odrv0) doesnt take an axis as an object. lorenzo - 3/27
                         # added this too
                         print("Clearing errors and continuing...")
+                        logger.warning("Clearing errors and continuing...")
 
                         # stop motors before clearing
                         drive_0(odrv0)
@@ -351,18 +456,27 @@ if __name__ == '__main__':
     #added all this
     except KeyboardInterrupt:
         print("\n\nCtrl C pressed - shutting down")
-        print("Total errors enountered:", error_count)
+        logger.info("\n\nCtrl C pressed - shutting down")
+        print("Total errors encountered:", error_count)
+        logger.info("Total errors encountered:", error_count)
     except Exception as e:
         print("\n\nFatal error", e)
+        logger.exception(f"Fatal error: {e}")
         import traceback
         traceback.print_exc()
     finally:
         print("\nStopping motors...")
+        logger.info("Stopping motors...")
         drive_0(odrv0)
+        #write the final log
+        write_shutdown_log(odrv0, loop_count, error_count, shutdown_reason)
+        
         time.sleep(0.1)
         #cleans up GPIO pins on exit - kept
         cleanup()
         print("Shutdown complete")
+        logger.info("Shutdown complete")
+
 
 
 
