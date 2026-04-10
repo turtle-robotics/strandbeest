@@ -1,0 +1,19 @@
+Metadata-Version: 2.1
+Name: odrive
+Version: 0.6.10.post0
+Summary: Control utilities for the ODrive high performance motor controller
+Home-page: https://odriverobotics.com/
+Author: ODrive Robotics Inc
+Author-email: info@odriverobotics.com
+License: MIT
+Keywords: odrive,motor,motor control,servo
+Requires-Dist: aiohttp
+Requires-Dist: appdirs
+Requires-Dist: ipython
+Requires-Dist: setuptools
+Provides-Extra: legacy-dfu
+Requires-Dist: PyUSB ; extra == 'legacy-dfu'
+Requires-Dist: pyelftools ; extra == 'legacy-dfu'
+Provides-Extra: liveplotter
+Requires-Dist: matplotlib ; extra == 'liveplotter'
+

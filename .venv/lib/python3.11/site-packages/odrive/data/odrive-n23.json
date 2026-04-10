@@ -1,0 +1,45 @@
+{
+    "name": "ODrive N23",
+    "mcu": "STM32H72x",
+    "min_voltage": 6.0,
+    "max_voltage": 30.0,
+    "inverters": [
+        {"drv": {"$ref": "drv8316"}, "max_current": 7.0}
+    ],
+    "rails": {
+        "5v": 4.7
+    },
+    "aux_inverters": [],
+    "io": {
+        "gpio0": "ioa",
+        "gpio1": "io",
+        "gpio2": "ioa",
+        "gpio3": "id",
+        "gpio4": "iod",
+        "gpio5": "idp",
+        "gpio6": "idp",
+        "gpio7": "id",
+        "gpio8": "od"
+    },
+    "inc_enc": [
+        {"a": "gpio3", "b": "gpio4"},
+        {"a": "gpio0", "b": "gpio1"}
+    ],
+    "spi": [
+        {"miso": "gpio3", "mosi": "gpio8", "sck": "gpio4"}
+    ],
+    "uart": [
+        {"rx": "gpio7", "tx": "gpio8"}
+    ],
+    "step_dir": [
+        {"step": "gpio5", "dir": "gpio6"}
+    ],
+    "rs485": ["gpio3"],
+    "temp_in": [],
+    "fan": false,
+    "onboard_encoders": 1,
+    "defaults": {
+        "inc_enc_z": ["gpio2", "gpio2"],
+        "spi_ncs": ["gpio1"]
+    }
+}

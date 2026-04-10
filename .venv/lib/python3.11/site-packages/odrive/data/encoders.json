@@ -1,0 +1,86 @@
+{
+    "AMT10x": {
+        "type": "incremental",
+        "cpr": 8192,
+        "max_rpm": 7500,
+        "datasheet_url": "https://www.cuidevices.com/product/resource/amt10.pdf",
+        "show_in_gui": true,
+        "image": "AMT10.jpeg",
+        "shop_url": "https://shop.odriverobotics.com/products/cui-amt-102"
+    },
+    "AMT10Ex": {
+        "type": "incremental",
+        "cpr": 20480,
+        "max_rpm": 3000,
+        "datasheet_url": "https://www.cuidevices.com/product/resource/amt10e.pdf",
+        "show_in_gui": true,
+        "image": "AMT10.jpeg",
+        "shop_url": "https://shop.odriverobotics.com/products/20480-cpr-encoder-with-odrive-cable"
+    },
+    "AMT21xA": {
+        "type": "rs485",
+        "protocol": "AMT21_POLLING",
+        "datasheet_url": "https://www.cuidevices.com/product/resource/amt21.pdf",
+        "cpr": 4096,
+        "max_rpm": 8000,
+        "show_in_gui": false
+    },
+    "AMT21xB": {
+        "type": "rs485",
+        "protocol": "AMT21_POLLING",
+        "datasheet_url": "https://www.cuidevices.com/product/resource/amt21.pdf",
+        "cpr": 16384,
+        "max_rpm": 4000,
+        "show_in_gui": true,
+        "image": "AMT212x-V.jpeg"
+    },
+    "AMT21xB-V-OD": {
+        "type": "rs485",
+        "protocol": "AMT21_EVENT_DRIVEN",
+        "datasheet_url": "https://www.cuidevices.com/product/resource/amt21.pdf",
+        "cpr": 16384,
+        "max_rpm": 6000,
+        "show_in_gui": true,
+        "image": "AMT212x-V.jpeg",
+        "shop_url": "https://shop.odriverobotics.com/products/cui-amt212b-v-od"
+    },
+    "AMT21xC": {
+        "type": "rs485",
+        "protocol": "AMT21_POLLING",
+        "datasheet_url": "https://www.cuidevices.com/product/resource/amt21.pdf",
+        "cpr": 4096,
+        "max_rpm": 8000,
+        "show_in_gui": false
+    },
+    "AMT21xD": {
+        "type": "rs485",
+        "protocol": "AMT21_POLLING",
+        "datasheet_url": "https://www.cuidevices.com/product/resource/amt21.pdf",
+        "cpr": 16384,
+        "max_rpm": 4000,
+        "show_in_gui": false
+    },
+    "JKongMotor-encoder": {
+        "type": "incremental",
+        "datasheet_url": "https://jkongmotor.en.alibaba.com/product/60286588137-800888379/JK86BLS125_48V_3000RPM_660W_BLDC_MOTOR.html",
+        "cpr": 10000,
+        "max_rpm": 3000,
+        "show_in_gui": false
+    },
+    "KingKong-MBS": {
+        "type": "rs485",
+        "protocol": "MBS",
+        "cpr": 16384,
+        "max_rpm": 20000,
+        "show_in_gui": false
+    },
+    "ODrive-OA1": {
+        "type": "rs485",
+        "protocol": "ODRIVE_OA1",
+        "cpr": 4096,
+        "max_rpm": 60000,
+        "show_in_gui": true,
+        "image": "odrive-mag-encoder.jpeg",
+        "shop_url": "https://shop.odriverobotics.com/products/odrive-rs485-magnetic-encoder"
+    }
+}

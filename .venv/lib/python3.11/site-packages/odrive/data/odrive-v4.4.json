@@ -1,0 +1,58 @@
+{
+    "name": "ODrive Pro v4.4-58V",
+    "mcu": "STM32H7A3",
+    "min_voltage": 10.5,
+    "max_voltage": 64.0,
+    "inverters": [
+        {"drv": {"$ref": "drv8353"}, "max_current": 150.0}
+    ],
+    "aux_inverters": [],
+    "rails": {
+        "vcc": 3.3,
+        "mio_vdd": 5.0,
+        "5v": 5.0,
+        "12v": 12.0
+    },
+    "io": {
+        "gpio0": "dio",
+        "gpio1": "i",
+        "gpio2": "i",
+        "gpio3": "to",
+        "gpio4": "i",
+        "gpio5": "i",
+        "gpio6": "i",
+        "gpio7": "i",
+        "gpio8": "ip",
+        "gpio9": "ip",
+        "gpio10": "o",
+        "gpio11": "i",
+        "gpio12": "i",
+        "gpio13": "o",
+        "gpio14": "io",
+        "gpio15": "ioa",
+        "gpio16": "ioa",
+        "gpio17": "do",
+        "gpio18": "di"
+    },
+    "inc_enc": [
+        {"a": "gpio1", "b": "gpio6"},
+        {"a": "gpio16", "b": "gpio15"}
+    ],
+    "spi": [
+        {"miso": "gpio18", "mosi": "gpio14", "sck": "gpio0"}
+    ],
+    "uart": [
+        {"rx": "gpio12", "tx": "gpio13"}
+    ],
+    "step_dir": [
+        {"step": "gpio8", "dir": "gpio9"}
+    ],
+    "rs485": ["gpio0"],
+    "temp_in": [{"io": "gpio3", "r_load": 1000, "thermistor_bottom": true}],
+    "fan": true,
+    "onboard_encoders": 1,
+    "defaults": {
+        "inc_enc_z": ["gpio7", "gpio14"],
+        "spi_ncs": ["gpio17"]
+    }
+}

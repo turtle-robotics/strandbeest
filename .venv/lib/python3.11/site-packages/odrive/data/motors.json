@@ -1,0 +1,140 @@
+{
+    "D5065-270KV": {
+        "phase_resistance": 0.039,
+        "phase_inductance": 1.57e-05,
+        "pole_pairs": 7,
+        "max_current": 65,
+        "kv": 270,
+        "moment_of_inertia": 1e-4,
+        "thermistor_r25": 10000,
+        "thermistor_beta": 3435,
+        "max_temp": 130,
+        "shop_url": "https://shop.odriverobotics.com/products/odrive-custom-motor-d5065",
+        "show_in_gui": true
+    },
+    "D6374-150KV": {
+        "phase_resistance": 0.039,
+        "phase_inductance": 2.40e-05,
+        "pole_pairs": 7,
+        "max_current": 70,
+        "kv": 150,
+        "moment_of_inertia": 1e-4,
+        "thermistor_r25": 10000,
+        "thermistor_beta": 3435,
+        "max_temp": 130,
+        "shop_url": "https://shop.odriverobotics.com/products/odrive-custom-motor-d6374-150kv",
+        "show_in_gui": true
+    },
+    "D5312s-330KV": {
+        "phase_resistance": 0.037,
+        "phase_inductance": 2.274e-05,
+        "pole_pairs": 7,
+        "max_current": 40,
+        "kv": 330,
+        "thermistor_r25": 10000,
+        "thermistor_beta": 3435,
+        "max_temp": 130,
+        "shop_url": "https://shop.odriverobotics.com/products/dual-shaft-motor-d5212s-300kv",
+        "show_in_gui": true
+    },
+    "M8325s-100KV": {
+        "phase_resistance": 0.024,
+        "phase_inductance": 9.97e-06,
+        "pole_pairs": 20,
+        "max_current": 50,
+        "kv": 100,
+        "thermistor_r25": 10000,
+        "thermistor_beta": 3435,
+        "max_temp": 130,
+        "shop_url": "https://shop.odriverobotics.com/products/m8325s",
+        "show_in_gui": true
+    },
+    "BotWheel": {
+        "phase_resistance": 0.8,
+        "phase_inductance": 1.7e-03,
+        "pole_pairs": 15,
+        "max_current": 16,
+        "kv": 8.7,
+        "thermistor_r25": 20000,
+        "thermistor_beta": 3950,
+        "max_temp": 130,
+        "shop_url": "https://shop.odriverobotics.com/products/botwheels",
+        "show_in_gui": true,
+        "builtin_inc_cpr": 3200,
+        "builtin_hall": true
+    },
+    "Herlea Pancake": {
+        "phase_resistance": 0.0463,
+        "phase_inductance": 3.22e-5,
+        "pole_pairs": 20,
+        "max_current": 50,
+        "kv": 120,
+        "show_in_gui": false
+    },
+    "ME1114": {
+        "phase_resistance": 0.033,
+        "phase_inductance": 1.80e-5,
+        "pole_pairs": 4,
+        "max_current": 200,
+        "calibration_current": 16,
+        "torque_constant": 0.12,
+        "max_vel": 83.33333333333333,
+        "show_in_gui": false
+    },
+    "NEMA34-JKongMotor": {
+        "phase_resistance": 0.0623,
+        "phase_inductance": 9.068e-5,
+        "pole_pairs": 4,
+        "max_current": 20,
+        "torque_constant": 0.13,
+        "thermistor_r25": 10000,
+        "thermistor_beta": 3435,
+        "max_temp": 140,
+        "show_in_gui": false
+    },
+    "NEMA34-Leison": {
+        "phase_resistance": 0.0623,
+        "phase_inductance": 9.068e-5,
+        "pole_pairs": 4,
+        "kv": 87,
+        "max_current": 20,
+        "thermistor_r25": 10000,
+        "thermistor_beta": 3435,
+        "max_temp": 140,
+        "show_in_gui": false
+    },
+    "NEMA32-Leison": {
+        "phase_resistance": 0.052,
+        "phase_inductance": 0.00010684521112125367,
+        "pole_pairs": 4,
+        "kv": 145,
+        "max_current": 8,
+        "thermistor_r25": 10000,
+        "thermistor_beta": 3435,
+        "max_temp": 140,
+        "show_in_gui": false
+    },
+    "NEMA23-Leison": {
+        "phase_resistance": 0.147,
+        "phase_inductance": 107.1e-6,
+        "pole_pairs": 4,
+        "kv": 180.5,
+        "max_current": 10,
+        "thermistor_r25": 10000,
+        "thermistor_beta": 3435,
+        "max_temp": 140,
+        "show_in_gui": false
+    },
+    "N3401-AMT21": {
+        "phase_resistance": 0.1,
+        "phase_inductance": 100e-6,
+        "pole_pairs": 4,
+        "kv": 87,
+        "max_current": 30,
+        "thermistor_r25": 10000,
+        "thermistor_beta": 3950,
+        "max_temp": 140,
+        "show_in_gui": true,
+        "builton_encoder": "AMT21xB-V-OD"
+    }
+}

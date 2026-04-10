@@ -1,0 +1,18 @@
+{
+    "50w2rj": {
+        "resistance": 2,
+        "power_rating": 50
+    },
+    "500w2rj": {
+        "resistance": 2,
+        "power_rating": 500
+    },
+    "300w2rj": {
+        "resistance": 2,
+        "power_rating": 300
+    },
+    "625w1r": {
+        "resistance": 1,
+        "power_rating": 625
+    }
+}

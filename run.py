@@ -100,12 +100,13 @@ def drive_0(odrv0):
     drive_axis(odrv0.axis1, 0)
 
 #drive function
+#find a way to make it so when one axis is 0, make the other 0 - lorenzo
 def drive(odrv0):
     global x_axis
     global y_axis
-    left = copysign(min(abs(y_axis - x_axis), 1.0), y_axis - x_axis)
-    right = copysign(min(abs(y_axis + x_axis), 1.0), y_axis + x_axis)
-    left, right = dead_band(left, right, 0.01, 0.01)
+    left = 2*copysign(min(abs(y_axis - x_axis), 1.0), y_axis - x_axis)
+    right = 2*copysign(min(abs(y_axis + x_axis), 1.0), y_axis + x_axis)
+    left, right = dead_band(left, right, 0.1, 0.1)
     # if not enabled or not controller_connected:
     #     left = 0
     #     right = 0

@@ -1,0 +1,82 @@
+{
+    "drv8301": {
+        "faults": [
+            [0, "FETLC_OC"],
+            [1, "FETHC_OC"],
+            [2, "FETLB_OC"],
+            [3, "FETHB_OC"],
+            [4, "FETLA_OC"],
+            [5, "FETHA_OC"],
+            [6, "OTW"],
+            [7, "OTSD"],
+            [8, "PVDD_UV"],
+            [9, "GVDD_UV"],
+            [10, "FAULT"],
+            [23, "GVDD_OV"]
+        ],
+        "config": []
+    },
+    "drv8353": {
+        "faults": [
+            [10, "FAULT"],
+            [9, "VDS_OCP"],
+            [8, "GDF"],
+            [7, "UVLO"],
+            [6, "OTSD"],
+            [5, "VDS_HA"],
+            [4, "VDS_LA"],
+            [3, "VDS_HB"],
+            [2, "VDS_LB"],
+            [1, "VDS_HC"],
+            [0, "VDS_LC"],
+            [26, "SA_OC"],
+            [25, "SB_OC"],
+            [24, "SC_OC"],
+            [23, "OTW"],
+            [22, "GDUV"],
+            [21, "VGS_HA"],
+            [20, "VGS_LA"],
+            [19, "VGS_HB"],
+            [18, "VGS_LB"],
+            [17, "VGS_HC"],
+            [16, "VGS_LC"]
+        ],
+        "config": [
+            {"name": "IDRIVEN_HS", "pos": 11, "mask": 15, "codes": ["100mA", "100mA", "200mA", "300mA", "600mA", "700mA", "800mA", "900mA", "1100mA", "1200mA", "1300mA", "1400mA", "1700mA", "1800mA", "1900mA", "2000mA"]},
+            {"name": "IDRIVEP_HS", "pos": 15, "mask": 15, "codes": ["50mA", "50mA", "100mA", "150mA", "300mA", "350mA", "400mA", "450mA", "550mA", "600mA", "650mA", "700mA", "850mA", "900mA", "950mA", "1000mA"]},
+            {"name": "IDRIVEN_LS", "pos": 22, "mask": 15, "codes": ["100mA", "100mA", "200mA", "300mA", "600mA", "700mA", "800mA", "900mA", "1100mA", "1200mA", "1300mA", "1400mA", "1700mA", "1800mA", "1900mA", "2000mA"]},
+            {"name": "IDRIVEP_LS", "pos": 26, "mask": 15, "codes": ["50mA", "50mA", "100mA", "150mA", "300mA", "350mA", "400mA", "450mA", "550mA", "600mA", "650mA", "700mA", "850mA", "900mA", "950mA", "1000mA"]},
+            {"name": "VDS_LVL", "pos": 33, "mask": 15, "codes": ["0.06V", "0.07V", "0.08V", "0.09V", "0.1V", "0.2V", "0.3V", "0.4V", "0.5V", "0.6V", "0.7V", "0.8V", "0.9V", "1.0V", "1.5V", "2.0V"]},
+            {"name": "DEAD_TIME", "pos": 41, "mask": 3, "codes": ["50ns", "100ns", "200ns", "400ns"]},
+            {"name": "SEN_LVL", "pos": 44, "mask": 3, "codes": ["0.25V", "0.5V", "0.75V", "1.0V"]}
+        ]
+    },
+    "drv8316": {
+        "faults": [
+            [6, "BK_FLT"],
+            [5, "SPI_FLT"],
+            [4, "OCP"],
+            [3, "NPOR"],
+            [2, "OVP"],
+            [1, "OT"],
+            [0, "FAULT"],
+            [15, "OTW"],
+            [14, "OTS"],
+            [13, "OCP_HC"],
+            [12, "OCL_LC"],
+            [11, "OCP_HB"],
+            [10, "OCP_LB"],
+            [9, "OCP_HA"],
+            [8, "OCP_LA"],
+            [22, "OTP_ERR"],
+            [21, "BUCK_OCP"],
+            [20, "BUCK_UV"],
+            [19, "VCP_UV"],
+            [18, "SPI_PARITY"],
+            [17, "SPI_SCLK_FLT"],
+            [16, "SPI_ADDR_FLT"]
+        ],
+        "config": [
+        ]
+    }
+}

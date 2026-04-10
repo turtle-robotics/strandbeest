@@ -1,0 +1,245 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "$defs": {
+        "odrive": {
+            "type": "object",
+            "properties": {
+                "name": {"type": "string"},
+                "mcu": {"type": "string"},
+                "min_voltage": {"type": "number"},
+                "max_voltage": {"type": "number"},
+                "inverters": {
+                    "type": "array",
+                    "items":{
+                        "type": "object",
+                        "properties": {
+                            "drv": {
+                                "anyOf": [
+                                    {"$ref": "#/$defs/ref"},
+                                    {"$ref": "#/$defs/drv"}
+                                ]
+                            },
+                            "max_current": {"type": "number"}
+                        },
+                        "required": ["drv"],
+                        "additionalProperties": false
+                    }
+                },
+                "aux_inverters": {
+                    "type": "array",
+                    "items":{
+                        "type": "object",
+                        "properties": {},
+                        "additionalProperties": false
+                    }
+                },
+                "rails": {
+                    "additionalProperties": {
+                        "type": "number"
+                    }
+                },
+                "io": {
+                    "additionalProperties": {
+                        "type": "string",
+                        "pattern": "^[tioapd]*$"
+                    }
+                },
+                "inc_enc": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "a": {"$ref": "#/$defs/ioName"},
+                            "b": {"$ref": "#/$defs/ioName"}
+                        },
+                        "required": ["a", "b"],
+                        "additionalProperties": false
+                    }
+                },
+                "spi": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "miso": {"$ref": "#/$defs/optionalIoName"},
+                            "mosi": {"$ref": "#/$defs/optionalIoName"},
+                            "sck": {"$ref": "#/$defs/optionalIoName"}
+                        },
+                        "required": ["miso", "mosi", "sck"],
+                        "additionalProperties": false
+                    }
+                },
+                "uart": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "rx": {"$ref": "#/$defs/ioName"},
+                            "tx": {"$ref": "#/$defs/ioName"}
+                        },
+                        "required": ["rx", "tx"],
+                        "additionalProperties": false
+                    }
+                },
+                "step_dir": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "step": {"$ref": "#/$defs/ioName"},
+                            "dir": {"$ref": "#/$defs/ioName"}
+                        },
+                        "required": ["step", "dir"],
+                        "additionalProperties": false
+                    }
+                },
+                "rs485": {
+                    "type": "array",
+                    "items": {"$ref": "#/$defs/ioName"}
+                },
+                "temp_in": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "io": {"$ref": "#/$defs/ioName"},
+                            "r_load": {"type": "number"},
+                            "thermistor_bottom": {"type": "boolean"}
+                        },
+                        "required": ["io", "r_load", "thermistor_bottom"],
+                        "additionalProperties": false
+                    }
+                },
+                "fan": {"type": "boolean"},
+                "onboard_encoders": {"type": "number"},
+                "defaults": {
+                    "type": "object",
+                    "properties": {
+                        "inc_enc_z": {
+                            "type": "array",
+                            "items": {"$ref": "#/$defs/ioName"}
+                        },
+                        "spi_ncs": {
+                            "type": "array",
+                            "items": {"$ref": "#/$defs/ioName"}
+                        }
+                    },
+                    "required": ["inc_enc_z", "spi_ncs"],
+                    "additionalProperties": false
+                }
+            },
+            "required": ["inverters", "aux_inverters", "io", "inc_enc", "spi", "rs485", "temp_in", "fan", "defaults"],
+            "additionalProperties": false
+        },
+
+        "ioName": {
+            "type": "string"
+        },
+        "optionalIoName": {
+            "type": ["string", "null"]
+        },
+
+        "drv": {
+            "type": "object",
+            "properties": {
+                "faults": {
+                    "type": "array",
+                    "items": {
+                        "type": "array",
+                        "items": [
+                            {"type": "number"},
+                            {"type": "string"}
+                        ],
+                        "minItems": 2,
+                        "maxItems": 2
+                    }
+                },
+                "config": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "name": {"type": "string"},
+                            "pos": {"type": "number"},
+                            "mask": {"type": "number"},
+                            "codes": {
+                                "type": "array",
+                                "items": {"type": "string"}
+                            }
+                        },
+                        "required": ["name", "pos", "mask", "codes"],
+                        "additionalProperties": false
+                    }
+                }
+            },
+            "required": ["faults", "config"],
+            "additionalProperties": false
+        },
+
+        "motor": {
+            "type": "object",
+            "properties": {
+                "phase_resistance": {"type": "number"},
+                "phase_inductance": {"type": "number"},
+                "pole_pairs": {"type": "number"},
+                "kv": {"type": "number"},
+                "torque_constant": {"type": "number"},
+                "max_current": {"type": "number"},
+                "max_temp": {"type": "number"},
+                "max_vel": {"type": "number"},
+                "calibration_current": {"type": "number"},
+                "moment_of_inertia": {"type": "number"},
+                "thermistor_r25": {"type": "number"},
+                "thermistor_beta": {"type": "number"},
+                "shop_url": {"type": "string"},
+                "show_in_gui": {"type": "boolean"},
+                "builtin_inc_cpr": {"type": "number"},
+                "builtin_hall": {"type": "boolean"},
+                "builton_encoder": {"type": "string"}
+            },
+            "required": ["phase_resistance", "phase_inductance", "pole_pairs", "max_current"],
+            "oneOf": [
+                {"required": ["kv"]},
+                {"required": ["torque_constant"]}
+            ],
+            "additionalProperties": false
+        },
+
+        "encoder": {
+            "type": "object",
+            "properties": {
+                "inherits": {"type": "string"},
+                "type": {
+                    "type": "string",
+                    "enum": ["incremental", "rs485"]
+                },
+                "datasheet_url": {"type": "string"},
+                "cpr": {"type": "number"},
+                "protocol": {"type": "string"},
+                "max_rpm": {"type": "number"},
+                "shop_url": {"type": "string"},
+                "image": {"type": "string"},
+                "show_in_gui": {"type": "boolean"}
+            },
+            "additionalProperties": false
+        },
+
+        "brakeR": {
+            "type": "object",
+            "properties": {
+                "resistance": {"type": "number"},
+                "power_rating": {"type": "number"}
+            },
+            "required": ["resistance", "power_rating"],
+            "additionalProperties": false
+        },
+
+        "ref": {
+            "type": "object",
+            "properties": {
+                "$ref": {"type": "string"}
+            },
+            "required": ["$ref"]
+        }
+    }
+}
