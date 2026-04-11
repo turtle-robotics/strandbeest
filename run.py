@@ -14,6 +14,7 @@ import os
 
 import numpy as np
 import sounddevice as sd
+import sys
 #print(sd.query_devices())
 
 import pygame
@@ -35,7 +36,7 @@ current_angle = 90
 
 #added logging stuff - allison 04/10/26
 LOG_DIR = "logs"
-os.makedir(LOG_DIR, exist_ok=True) # makes directory
+os.makedirs(LOG_DIR, exist_ok=True) # makes directory
 LOG_FILE = os.path.join(LOG_DIR, f"beest_run_{time.strftime('%Y%m%d_%H%M%S')}.log")
 #adds a new file every time so there's no overwriting
 logging.basicConfig(
@@ -62,6 +63,31 @@ GPIO.setup(SERVO_PIN, GPIO.OUT)
 pwm = GPIO.PWM(SERVO_PIN, 50)
 pwm.start(7.5)
 
+def play_mp3(file_path):
+    try:
+        # Initialize the mixer
+        pygame.mixer.init()
+        
+        # Load the MP3 file
+        pygame.mixer.music.load(file_path)
+        
+        # Set volume (0.0 to 1.0)
+        pygame.mixer.music.set_volume(0.7)
+        
+        # Play the music
+        pygame.mixer.music.play()
+        print(f"Playing: {file_path}")
+        
+        # Wait until music finishes
+        while pygame.mixer.music.get_busy():
+            time.sleep(0.1)
+            
+    except pygame.error as e:
+        print(f"Error playing file: {e}")
+    except FileNotFoundError:
+        print(f"File not found: {file_path}")
+    finally:
+        pygame.mixer.quit()
 
 
 #cleanup command for GPIO pins
@@ -444,7 +470,9 @@ if __name__ == '__main__':
             if enabled:
                 if head:
                     # wrong head? change to head1 if it persists
-                    move_head(step = 5)
+                    #move_head(step = 5)
+                    mp3_file = "/home/pi/Downloads/no-doors-no-problem.mp3"
+                    play_mp3(mp3_file)
                 drive(odrv0)
             else:
                 drive_0(odrv0)
@@ -453,6 +481,7 @@ if __name__ == '__main__':
             time.sleep(0.05)
 
             t0 = t1
+            
     #added all this
     except KeyboardInterrupt:
         print("\n\nCtrl C pressed - shutting down")
@@ -469,7 +498,7 @@ if __name__ == '__main__':
         logger.info("Stopping motors...")
         drive_0(odrv0)
         #write the final log
-        write_shutdown_log(odrv0, loop_count, error_count, shutdown_reason)
+        write_shutdown_log(odrv0, loop_count, error_count, shutdown_reason) #currently throws an error becaues shutdown_reason is not defined
         
         time.sleep(0.1)
         #cleans up GPIO pins on exit - kept
