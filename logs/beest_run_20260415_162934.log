@@ -1,0 +1,35 @@
+2026-04-15 16:29:36,786 | INFO | controller connected: 8BitDo Ultimate C 2.4G Wireless Controller
+2026-04-15 16:29:37,788 | INFO | ROBOT CONTROL STARTING
+2026-04-15 16:29:37,788 | INFO | Searching for ODrive...
+2026-04-15 16:29:38,615 | INFO | Odrive Found
+2026-04-15 16:29:38,667 | INFO | No errors Found :)
+2026-04-15 16:29:38,704 | INFO | Configuration:
+2026-04-15 16:29:38,708 | INFO | Bus Voltage: 23.512500762939453 V
+2026-04-15 16:29:38,712 | INFO | Axis 0 Current Limit: 7.0 A
+2026-04-15 16:29:38,717 | INFO | Axis 1 Current Limit: 7.0 A
+2026-04-15 16:29:38,718 | INFO | Velocity Scale: 100
+2026-04-15 16:29:38,723 | INFO | Acceleration: 700.0
+2026-04-15 16:29:38,724 | INFO | Starting main loop.....
+2026-04-15 16:29:41,825 | INFO | Status -> Loop: 30 | Voltage: 23.09919548034668 | Errors: 0
+2026-04-15 16:29:44,363 | INFO | 
+
+Ctrl C pressed - shutting down
+2026-04-15 16:29:44,435 | INFO | Stopping motors...
+2026-04-15 16:29:44,446 | INFO | ==================================================
+2026-04-15 16:29:44,446 | INFO | BEEST SHUTDOWN LOG
+2026-04-15 16:29:44,447 | INFO | Shutdown reason: Ctrl C pressed - shutting down
+2026-04-15 16:29:44,447 | INFO | Total loops: 56
+2026-04-15 16:29:44,448 | INFO | Total errors: 0
+2026-04-15 16:29:44,448 | INFO | Final x_axis: -0.003936767578125
+2026-04-15 16:29:44,448 | INFO | Final y-axis: -0.003936767578125
+2026-04-15 16:29:44,448 | INFO | Final head angle: 90
+2026-04-15 16:29:44,452 | INFO | Final bus voltage: 23.57373046875 V
+2026-04-15 16:29:44,460 | INFO | Final Axis 0 error: 0x0
+2026-04-15 16:29:44,463 | INFO | Final Axis 1 error: 0x0
+2026-04-15 16:29:44,465 | INFO | Final Axis 0 state: 1
+2026-04-15 16:29:44,468 | INFO | Final Axis 1 state: 1
+2026-04-15 16:29:44,469 | INFO | Log file saved to: logs/beest_run_20260415_162934.log
+2026-04-15 16:29:44,472 | INFO | ==================================================
+2026-04-15 16:29:44,573 | INFO | GPIO cleaned up. Exiting.
+2026-04-15 16:29:44,574 | INFO | Shutdown complete
+2026-04-15 16:29:44,575 | INFO | Log written to logs/beest_run_20260415_162934.log
