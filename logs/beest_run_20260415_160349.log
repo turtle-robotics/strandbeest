@@ -1,0 +1,40 @@
+2026-04-15 16:03:51,272 | WARNING | No controller found, retrying...
+2026-04-15 16:03:52,372 | WARNING | No controller found, retrying...
+2026-04-15 16:03:53,460 | WARNING | No controller found, retrying...
+2026-04-15 16:03:54,533 | WARNING | No controller found, retrying...
+2026-04-15 16:03:55,769 | INFO | controller connected: 8BitDo Ultimate C 2.4G Wireless Controller
+2026-04-15 16:03:56,769 | INFO | ROBOT CONTROL STARTING
+2026-04-15 16:03:56,770 | INFO | Searching for ODrive...
+2026-04-15 16:03:57,561 | INFO | Odrive Found
+2026-04-15 16:03:57,609 | INFO | No errors Found :)
+2026-04-15 16:03:57,663 | INFO | Configuration:
+2026-04-15 16:03:57,670 | INFO | Bus Voltage: 23.236963272094727 V
+2026-04-15 16:03:57,678 | INFO | Axis 0 Current Limit: 7.0 A
+2026-04-15 16:03:57,693 | INFO | Axis 1 Current Limit: 7.0 A
+2026-04-15 16:03:57,694 | INFO | Velocity Scale: 100
+2026-04-15 16:03:57,701 | INFO | Acceleration: 700.0
+2026-04-15 16:03:57,702 | INFO | Starting main loop.....
+2026-04-15 16:04:00,775 | INFO | Status -> Loop: 30 | Voltage: 23.57373046875 | Errors: 0
+2026-04-15 16:04:03,784 | INFO | Status -> Loop: 58 | Voltage: 23.543115615844727 | Errors: 0
+2026-04-15 16:04:05,690 | INFO | 
+
+Ctrl C pressed - shutting down
+2026-04-15 16:04:05,759 | INFO | Stopping motors...
+2026-04-15 16:04:05,772 | INFO | ==================================================
+2026-04-15 16:04:05,774 | INFO | BEEST SHUTDOWN LOG
+2026-04-15 16:04:05,775 | INFO | Shutdown reason: Ctrl C pressed - shutting down
+2026-04-15 16:04:05,775 | INFO | Total loops: 77
+2026-04-15 16:04:05,776 | INFO | Total errors: 0
+2026-04-15 16:04:05,777 | INFO | Final x_axis: -1.0
+2026-04-15 16:04:05,778 | INFO | Final y-axis: -1.0
+2026-04-15 16:04:05,779 | INFO | Final head angle: 90
+2026-04-15 16:04:05,783 | INFO | Final bus voltage: 23.543115615844727 V
+2026-04-15 16:04:05,788 | INFO | Final Axis 0 error: 0x0
+2026-04-15 16:04:05,792 | INFO | Final Axis 1 error: 0x0
+2026-04-15 16:04:05,798 | INFO | Final Axis 0 state: 1
+2026-04-15 16:04:05,802 | INFO | Final Axis 1 state: 1
+2026-04-15 16:04:05,806 | INFO | Log file saved to: logs/beest_run_20260415_160349.log
+2026-04-15 16:04:05,807 | INFO | ==================================================
+2026-04-15 16:04:05,908 | INFO | GPIO cleaned up. Exiting.
+2026-04-15 16:04:05,910 | INFO | Shutdown complete
+2026-04-15 16:04:05,911 | INFO | Log written to logs/beest_run_20260415_160349.log
