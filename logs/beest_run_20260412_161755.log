@@ -1,0 +1,18 @@
+2026-04-12 16:17:56,670 | INFO | controller connected: 8BitDo Ultimate C 2.4G Wireless Controller
+2026-04-12 16:17:57,671 | INFO | ROBOT CONTROL STARTING
+2026-04-12 16:17:57,671 | INFO | Searching for ODrive...
+2026-04-12 16:17:58,368 | INFO | Odrive Found
+2026-04-12 16:17:58,383 | ERROR | Axis 0 error details
+2026-04-12 16:17:58,404 | INFO | Configuration:
+2026-04-12 16:17:58,408 | INFO | Bus Voltage: 23.63496208190918 V
+2026-04-12 16:17:58,414 | INFO | Axis 0 Current Limit: 7.0 A
+2026-04-12 16:17:58,419 | INFO | Axis 1 Current Limit: 7.0 A
+2026-04-12 16:17:58,419 | INFO | Velocity Scale: 100
+2026-04-12 16:17:58,423 | INFO | Acceleration: 700.0
+2026-04-12 16:17:58,424 | INFO | Starting main loop.....
+2026-04-12 16:18:02,752 | INFO | Head button pressed
+2026-04-12 16:18:15,077 | INFO | Head button pressed
+2026-04-12 16:20:38,941 | INFO | 
+
+Ctrl C pressed - shutting down
+2026-04-12 16:20:38,951 | INFO | Stopping motors...

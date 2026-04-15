@@ -1,0 +1,34 @@
+2026-04-12 17:51:32,755 | INFO | controller connected: 8BitDo Ultimate C 2.4G Wireless Controller
+2026-04-12 17:51:33,756 | INFO | ROBOT CONTROL STARTING
+2026-04-12 17:51:33,757 | INFO | Searching for ODrive...
+2026-04-12 17:51:34,647 | INFO | Odrive Found
+2026-04-12 17:51:34,684 | ERROR | Axis 0 error details
+2026-04-12 17:51:34,744 | INFO | Configuration:
+2026-04-12 17:51:34,752 | INFO | Bus Voltage: 23.512500762939453 V
+2026-04-12 17:51:34,757 | INFO | Axis 0 Current Limit: 7.0 A
+2026-04-12 17:51:34,764 | INFO | Axis 1 Current Limit: 7.0 A
+2026-04-12 17:51:34,765 | INFO | Velocity Scale: 100
+2026-04-12 17:51:34,769 | INFO | Acceleration: 700.0
+2026-04-12 17:51:34,769 | INFO | Starting main loop.....
+2026-04-12 17:51:36,848 | INFO | Head button pressed
+2026-04-12 17:51:36,858 | INFO | EXTENDING HEAD
+2026-04-12 17:51:39,244 | INFO | Playing: /home/pi/Downloads/no-doors-no-problem.mp3
+2026-04-12 17:51:40,790 | INFO | Head button pressed
+2026-04-12 17:51:40,803 | INFO | RETRACTING HEAD
+2026-04-12 17:51:40,805 | INFO | Music stopped
+2026-04-12 17:51:44,607 | INFO | Head button pressed
+2026-04-12 17:51:44,620 | INFO | EXTENDING HEAD
+2026-04-12 17:51:46,998 | INFO | Playing: /home/pi/Downloads/no-doors-no-problem.mp3
+2026-04-12 17:51:52,148 | INFO | Head button pressed
+2026-04-12 17:51:52,154 | INFO | RETRACTING HEAD
+2026-04-12 17:51:52,155 | INFO | Music stopped
+2026-04-12 17:51:57,752 | INFO | Head button pressed
+2026-04-12 17:51:57,771 | INFO | EXTENDING HEAD
+2026-04-12 17:52:00,171 | INFO | Playing: /home/pi/Downloads/no-doors-no-problem.mp3
+2026-04-12 17:52:02,583 | INFO | Head button pressed
+2026-04-12 17:52:02,600 | INFO | RETRACTING HEAD
+2026-04-12 17:52:02,602 | INFO | Music stopped
+2026-04-12 17:52:05,377 | INFO | 
+
+Ctrl C pressed - shutting down
+2026-04-12 17:52:05,406 | INFO | Stopping motors...

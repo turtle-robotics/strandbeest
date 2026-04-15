@@ -1,0 +1,40 @@
+2026-04-12 17:50:06,062 | INFO | controller connected: 8BitDo Ultimate C 2.4G Wireless Controller
+2026-04-12 17:50:07,063 | INFO | ROBOT CONTROL STARTING
+2026-04-12 17:50:07,064 | INFO | Searching for ODrive...
+2026-04-12 17:50:07,858 | INFO | Odrive Found
+2026-04-12 17:50:07,896 | ERROR | Axis 0 error details
+2026-04-12 17:50:07,948 | INFO | Configuration:
+2026-04-12 17:50:07,952 | INFO | Bus Voltage: 23.512500762939453 V
+2026-04-12 17:50:07,958 | INFO | Axis 0 Current Limit: 7.0 A
+2026-04-12 17:50:07,965 | INFO | Axis 1 Current Limit: 7.0 A
+2026-04-12 17:50:07,966 | INFO | Velocity Scale: 100
+2026-04-12 17:50:07,975 | INFO | Acceleration: 700.0
+2026-04-12 17:50:07,977 | INFO | Starting main loop.....
+2026-04-12 17:50:18,981 | INFO | Head button pressed
+2026-04-12 17:50:18,987 | INFO | EXTENDING HEAD
+2026-04-12 17:50:21,326 | INFO | Playing: /home/pi/Downloads/no-doors-no-problem.mp3
+2026-04-12 17:50:23,517 | INFO | Head button pressed
+2026-04-12 17:50:23,526 | INFO | RETRACTING HEAD
+2026-04-12 17:50:23,528 | INFO | Music stopped
+2026-04-12 17:50:28,398 | INFO | Head button pressed
+2026-04-12 17:50:28,417 | INFO | EXTENDING HEAD
+2026-04-12 17:50:30,733 | INFO | Playing: /home/pi/Downloads/no-doors-no-problem.mp3
+2026-04-12 17:50:37,691 | INFO | Head button pressed
+2026-04-12 17:50:37,699 | INFO | RETRACTING HEAD
+2026-04-12 17:50:37,701 | INFO | Music stopped
+2026-04-12 17:50:41,961 | INFO | Head button pressed
+2026-04-12 17:50:41,973 | INFO | EXTENDING HEAD
+2026-04-12 17:50:44,382 | INFO | Playing: /home/pi/Downloads/no-doors-no-problem.mp3
+2026-04-12 17:50:53,038 | INFO | Head button pressed
+2026-04-12 17:50:53,052 | INFO | RETRACTING HEAD
+2026-04-12 17:50:53,053 | INFO | Music stopped
+2026-04-12 17:51:03,424 | INFO | Head button pressed
+2026-04-12 17:51:03,434 | INFO | EXTENDING HEAD
+2026-04-12 17:51:05,749 | INFO | Playing: /home/pi/Downloads/no-doors-no-problem.mp3
+2026-04-12 17:51:08,858 | INFO | Head button pressed
+2026-04-12 17:51:08,868 | INFO | RETRACTING HEAD
+2026-04-12 17:51:08,870 | INFO | Music stopped
+2026-04-12 17:51:25,235 | INFO | 
+
+Ctrl C pressed - shutting down
+2026-04-12 17:51:25,288 | INFO | Stopping motors...

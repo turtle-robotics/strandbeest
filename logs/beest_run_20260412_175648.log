@@ -1,0 +1,73 @@
+2026-04-12 17:56:50,642 | INFO | controller connected: 8BitDo Ultimate C 2.4G Wireless Controller
+2026-04-12 17:56:51,644 | INFO | ROBOT CONTROL STARTING
+2026-04-12 17:56:51,644 | INFO | Searching for ODrive...
+2026-04-12 17:56:52,525 | INFO | Odrive Found
+2026-04-12 17:56:52,559 | ERROR | Axis 0 error details
+2026-04-12 17:56:52,618 | INFO | Configuration:
+2026-04-12 17:56:52,624 | INFO | Bus Voltage: 23.48188591003418 V
+2026-04-12 17:56:52,631 | INFO | Axis 0 Current Limit: 7.0 A
+2026-04-12 17:56:52,638 | INFO | Axis 1 Current Limit: 7.0 A
+2026-04-12 17:56:52,640 | INFO | Velocity Scale: 100
+2026-04-12 17:56:52,646 | INFO | Acceleration: 700.0
+2026-04-12 17:56:52,648 | INFO | Starting main loop.....
+2026-04-12 17:56:52,649 | INFO | Head button pressed
+2026-04-12 17:56:52,650 | INFO | EXTENDING HEAD
+2026-04-12 17:56:55,050 | INFO | Playing: /home/pi/Downloads/no-doors-no-problem.mp3
+2026-04-12 17:56:55,815 | INFO | Head button pressed
+2026-04-12 17:56:55,826 | INFO | RETRACTING HEAD
+2026-04-12 17:56:55,828 | INFO | Music stopped
+2026-04-12 17:57:05,698 | INFO | Head button pressed
+2026-04-12 17:57:05,711 | INFO | EXTENDING HEAD
+2026-04-12 17:57:08,034 | INFO | Playing: /home/pi/Downloads/no-doors-no-problem.mp3
+2026-04-12 17:57:10,350 | INFO | Head button pressed
+2026-04-12 17:57:10,361 | INFO | RETRACTING HEAD
+2026-04-12 17:57:10,367 | INFO | Music stopped
+2026-04-12 17:57:28,131 | INFO | Head button pressed
+2026-04-12 17:57:28,144 | INFO | EXTENDING HEAD
+2026-04-12 17:57:30,528 | INFO | Playing: /home/pi/Downloads/no-doors-no-problem.mp3
+2026-04-12 17:57:31,254 | INFO | Head button pressed
+2026-04-12 17:57:31,265 | INFO | RETRACTING HEAD
+2026-04-12 17:57:31,267 | INFO | Music stopped
+2026-04-12 17:57:44,258 | INFO | Head button pressed
+2026-04-12 17:57:44,269 | INFO | EXTENDING HEAD
+2026-04-12 17:57:46,615 | INFO | Playing: /home/pi/Downloads/no-doors-no-problem.mp3
+2026-04-12 17:57:47,261 | INFO | Head button pressed
+2026-04-12 17:57:47,277 | INFO | RETRACTING HEAD
+2026-04-12 17:57:47,279 | INFO | Music stopped
+2026-04-12 17:57:53,757 | INFO | Head button pressed
+2026-04-12 17:57:53,768 | INFO | EXTENDING HEAD
+2026-04-12 17:57:56,139 | INFO | Playing: /home/pi/Downloads/no-doors-no-problem.mp3
+2026-04-12 17:58:10,557 | INFO | Head button pressed
+2026-04-12 17:58:10,565 | INFO | RETRACTING HEAD
+2026-04-12 17:58:10,566 | INFO | Music stopped
+2026-04-12 17:58:18,131 | INFO | Head button pressed
+2026-04-12 17:58:18,146 | INFO | EXTENDING HEAD
+2026-04-12 17:58:20,495 | INFO | Playing: /home/pi/Downloads/no-doors-no-problem.mp3
+2026-04-12 17:58:28,198 | INFO | Head button pressed
+2026-04-12 17:58:28,212 | INFO | RETRACTING HEAD
+2026-04-12 17:58:28,213 | INFO | Music stopped
+2026-04-12 17:58:34,160 | INFO | Head button pressed
+2026-04-12 17:58:34,168 | INFO | EXTENDING HEAD
+2026-04-12 17:58:36,507 | INFO | Playing: /home/pi/Downloads/no-doors-no-problem.mp3
+2026-04-12 17:58:52,242 | INFO | Head button pressed
+2026-04-12 17:58:52,266 | INFO | RETRACTING HEAD
+2026-04-12 17:58:52,268 | INFO | Music stopped
+2026-04-12 17:59:14,270 | INFO | Head button pressed
+2026-04-12 17:59:14,279 | INFO | EXTENDING HEAD
+2026-04-12 17:59:16,648 | INFO | Playing: /home/pi/Downloads/no-doors-no-problem.mp3
+2026-04-12 17:59:29,309 | INFO | Head button pressed
+2026-04-12 17:59:29,330 | INFO | RETRACTING HEAD
+2026-04-12 17:59:29,331 | INFO | Music stopped
+2026-04-12 17:59:36,159 | INFO | Head button pressed
+2026-04-12 17:59:36,180 | INFO | EXTENDING HEAD
+2026-04-12 17:59:38,524 | INFO | Playing: /home/pi/Downloads/no-doors-no-problem.mp3
+2026-04-12 17:59:51,684 | INFO | Head button pressed
+2026-04-12 17:59:51,697 | INFO | RETRACTING HEAD
+2026-04-12 17:59:51,699 | INFO | Music stopped
+2026-04-12 17:59:55,702 | INFO | Head button pressed
+2026-04-12 17:59:55,706 | INFO | EXTENDING HEAD
+2026-04-12 17:59:58,015 | INFO | Playing: /home/pi/Downloads/no-doors-no-problem.mp3
+2026-04-12 18:00:38,768 | INFO | 
+
+Ctrl C pressed - shutting down
+2026-04-12 18:00:38,819 | INFO | Stopping motors...

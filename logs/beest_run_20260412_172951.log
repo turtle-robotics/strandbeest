@@ -1,0 +1,44 @@
+2026-04-12 17:29:52,607 | WARNING | No controller found, retrying...
+2026-04-12 17:29:53,702 | WARNING | No controller found, retrying...
+2026-04-12 17:29:54,774 | WARNING | No controller found, retrying...
+2026-04-12 17:29:55,893 | WARNING | No controller found, retrying...
+2026-04-12 17:29:57,258 | INFO | controller connected: 8BitDo Ultimate C 2.4G Wireless Controller
+2026-04-12 17:29:58,259 | INFO | ROBOT CONTROL STARTING
+2026-04-12 17:29:58,260 | INFO | Searching for ODrive...
+2026-04-12 17:29:59,079 | INFO | Odrive Found
+2026-04-12 17:29:59,127 | ERROR | Axis 0 error details
+2026-04-12 17:29:59,182 | INFO | Configuration:
+2026-04-12 17:29:59,192 | INFO | Bus Voltage: 23.543115615844727 V
+2026-04-12 17:29:59,200 | INFO | Axis 0 Current Limit: 7.0 A
+2026-04-12 17:29:59,206 | INFO | Axis 1 Current Limit: 7.0 A
+2026-04-12 17:29:59,208 | INFO | Velocity Scale: 100
+2026-04-12 17:29:59,226 | INFO | Acceleration: 700.0
+2026-04-12 17:29:59,228 | INFO | Starting main loop.....
+2026-04-12 17:30:04,331 | INFO | Head button pressed
+2026-04-12 17:30:04,337 | INFO | EXTENDING HEAD
+2026-04-12 17:30:06,775 | INFO | Playing: /home/pi/Downloads/no-doors-no-problem.mp3
+2026-04-12 17:30:14,423 | INFO | Head button pressed
+2026-04-12 17:30:14,441 | INFO | RETRACTING HEAD
+2026-04-12 17:30:14,441 | INFO | Music stopped
+2026-04-12 17:30:17,693 | INFO | Head button pressed
+2026-04-12 17:30:17,712 | INFO | EXTENDING HEAD
+2026-04-12 17:30:20,092 | INFO | Playing: /home/pi/Downloads/no-doors-no-problem.mp3
+2026-04-12 17:30:34,348 | INFO | Head button pressed
+2026-04-12 17:30:34,361 | INFO | RETRACTING HEAD
+2026-04-12 17:30:34,362 | INFO | Music stopped
+2026-04-12 17:30:56,035 | INFO | Head button pressed
+2026-04-12 17:30:56,045 | INFO | EXTENDING HEAD
+2026-04-12 17:30:58,388 | INFO | Playing: /home/pi/Downloads/no-doors-no-problem.mp3
+2026-04-12 17:31:00,946 | INFO | Head button pressed
+2026-04-12 17:31:00,961 | INFO | RETRACTING HEAD
+2026-04-12 17:31:00,962 | INFO | Music stopped
+2026-04-12 17:31:07,198 | INFO | Head button pressed
+2026-04-12 17:31:07,214 | INFO | EXTENDING HEAD
+2026-04-12 17:31:09,659 | INFO | Playing: /home/pi/Downloads/no-doors-no-problem.mp3
+2026-04-12 17:31:19,234 | INFO | Head button pressed
+2026-04-12 17:31:19,246 | INFO | RETRACTING HEAD
+2026-04-12 17:31:19,252 | INFO | Music stopped
+2026-04-12 17:31:29,234 | INFO | 
+
+Ctrl C pressed - shutting down
+2026-04-12 17:31:29,295 | INFO | Stopping motors...

@@ -33,6 +33,10 @@ vel_scale = 100
 
 #jaw angle
 current_angle = 90
+head_extended = False
+last_button_state = False
+action_start_time = 0
+waiting_to_play = False
 
 #added logging stuff - allison 04/10/26
 LOG_DIR = "logs"
@@ -50,7 +54,11 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 # end of logging code
 
-
+# Helper function to convert angle (0-180) to duty cycle
+def angle_to_duty_cycle(angle):
+    #servo cannot rotate a full 180, so we go based on the duty cycle
+    # angle / 18.0 + 2.5 - original code
+    return 2.5 + (angle / 18.0) # Rough mapping for SG90
 
 # Servo pin setup (BCM mode)
 SERVO_PIN = 26  # Use any PWM-capable GPIO pin, like 12, 13, 18, or 19
@@ -61,33 +69,34 @@ GPIO.setup(SERVO_PIN, GPIO.OUT)
 
 # 50Hz PWM frequency for SG90
 pwm = GPIO.PWM(SERVO_PIN, 50)
-pwm.start(7.5)
+pwm.start(angle_to_duty_cycle(90))
+
+time.sleep(0.6)  # allow servo + PWM to fully stabilize
+
+pwm.ChangeDutyCycle(angle_to_duty_cycle(90))
+time.sleep(0.2)
+pwm.ChangeDutyCycle(0)
 
 def play_mp3(file_path):
     try:
-        # Initialize the mixer
-        pygame.mixer.init()
-        
-        # Load the MP3 file
+        if not pygame.mixer.get_init():
+            pygame.mixer.init()
+
         pygame.mixer.music.load(file_path)
-        
-        # Set volume (0.0 to 1.0)
-        pygame.mixer.music.set_volume(0.7)
-        
-        # Play the music
+        pygame.mixer.music.set_volume(0.9)
         pygame.mixer.music.play()
+
         print(f"Playing: {file_path}")
-        
-        # Wait until music finishes
-        while pygame.mixer.music.get_busy():
-            time.sleep(0.1)
-            
-    except pygame.error as e:
-        print(f"Error playing file: {e}")
-    except FileNotFoundError:
-        print(f"File not found: {file_path}")
-    finally:
-        pygame.mixer.quit()
+        logger.info(f"Playing: {file_path}")
+
+    except Exception as e:
+        print(f"Audio error: {e}")
+        logger.exception(f"Audio error: {e}")
+
+def stop_mp3():
+    pygame.mixer.music.stop()
+    print("Music stopped")
+    logger.info("Music stopped")
 
 
 #cleanup command for GPIO pins
@@ -96,12 +105,6 @@ def cleanup():
     GPIO.cleanup()
     print("GPIO cleaned up. Exiting.")
     logger.info("GPIO cleaned up. Exiting.")
-
-# Helper function to convert angle (0-180) to duty cycle
-def angle_to_duty_cycle(angle):
-    #servo cannot rotate a full 180, so we go based on the duty cycle
-    # angle / 18.0 + 2.5 - original code
-    return 2.5 + (angle / 18.0) # Rough mapping for SG90
         
 
 def dead_band(left, right, left_dead, right_dead):
@@ -232,6 +235,7 @@ while (not controller_connected):
 #this code is for head movement
 def get_joy():
     #check for button press and update global "head" variable (default false)
+    global x_axis, y_axis
     head = False
     print("reset")
     for event in pygame.event.get():
@@ -468,11 +472,41 @@ if __name__ == '__main__':
                     last_error_check = current_time
             # drive(odrv0, x_axis, y_axis)
             if enabled:
-                if head:
-                    # wrong head? change to head1 if it persists
-                    #move_head(step = 5)
+                # Detect button press (edge detection)
+                if head and not last_button_state:
+                    head_extended = not head_extended  # toggle
+
+                    if head_extended:
+                        print("EXTENDING HEAD")
+                        logger.info("EXTENDING HEAD")
+
+                        current_angle = 90
+                        pwm.ChangeDutyCycle(angle_to_duty_cycle(90))
+                        time.sleep(0.3)
+                        pwm.ChangeDutyCycle(0)
+
+                        action_start_time = time.time()
+                        waiting_to_play = True
+
+                    else:
+                        print("RETRACTING HEAD")
+                        logger.info("RETRACTING HEAD")
+
+                        stop_mp3()
+
+                        current_angle = 0
+                        pwm.ChangeDutyCycle(angle_to_duty_cycle(0))
+                        time.sleep(0.3)
+                        pwm.ChangeDutyCycle(0)
+
+                last_button_state = head
+
+                # Delay before playing music (non-blocking)
+                if waiting_to_play and (time.time() - action_start_time > 2.0):
                     mp3_file = "/home/pi/Downloads/no-doors-no-problem.mp3"
                     play_mp3(mp3_file)
+                    waiting_to_play = False
+
                 drive(odrv0)
             else:
                 drive_0(odrv0)
