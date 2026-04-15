@@ -254,9 +254,10 @@ def get_joy():
     return (x_axis, y_axis, estop, head)
 
 #--------SHUTDOWN LOG - Allison 04/10/2026-------
-def write_shutdown_log(odrv0, loop_count, error_count):
+def write_shutdown_log(odrv0, loop_count, error_count, reason):
     logger.info("="*50)
     logger.info("BEEST SHUTDOWN LOG")
+    logger.info(f"Shutdown reason: {reason}")
     logger.info(f"Total loops: {loop_count}")
     logger.info(f"Total errors: {error_count}")
     logger.info(f"Final x_axis: {x_axis}")
@@ -279,6 +280,7 @@ def write_shutdown_log(odrv0, loop_count, error_count):
 #--------------end shutdown logging function
 
 if __name__ == '__main__':
+    shutdown_reason = "normal exit" # initialize the shutdown reason to being a normal exit, will only change if there is an error
     # initial print statements
     print("ROBOT CONTROL STARTING")
     print("-" * 40) # barrier
@@ -322,10 +324,10 @@ if __name__ == '__main__':
     try:
         odrv0.clear_errors() # could possibly be bad
         print("No errors Found :)")
-        logger.error("Axis 0 error details")
+        logger.info("No errors Found :)")
     except:
         print("Error found :(")
-        logger.error("Axis 0 error details")
+        logger.exception("Axis 0 error details")
         dump_errors(odrv0) #had to change this for debug, will fix later. lorenzo - 3/27
 
     # added this config stuff
@@ -373,6 +375,7 @@ if __name__ == '__main__':
             if current_time - last_status_print > 3.0:
                 print("Status -> Loop:", loop_count, "| Voltage:", odrv0.vbus_voltage,
                   "|Errors:", error_count)
+                logger.info(f"Status -> Loop: {loop_count} | Voltage: {odrv0.vbus_voltage} | Errors: {error_count}")
                 last_status_print = current_time
             # added this: checks for errors every 0.5 sec
             if current_time - last_error_check > 0.5:
@@ -518,11 +521,13 @@ if __name__ == '__main__':
             
     #added all this
     except KeyboardInterrupt:
+        shutdown_reason = "Ctrl C pressed - shutting down"
         print("\n\nCtrl C pressed - shutting down")
         logger.info("\n\nCtrl C pressed - shutting down")
         print("Total errors encountered:", error_count)
         logger.info("Total errors encountered:", error_count)
     except Exception as e:
+        shutdown_reason = f"Fatal error: {e}"
         print("\n\nFatal error", e)
         logger.exception(f"Fatal error: {e}")
         import traceback
@@ -533,13 +538,13 @@ if __name__ == '__main__':
         drive_0(odrv0)
         #write the final log
         write_shutdown_log(odrv0, loop_count, error_count, shutdown_reason) #currently throws an error becaues shutdown_reason is not defined
-        
+        # allison 4/15 ^ added shutdown_reason to code
         time.sleep(0.1)
         #cleans up GPIO pins on exit - kept
         cleanup()
         print("Shutdown complete")
         logger.info("Shutdown complete")
-
+        logger.info(f"Log written to {LOG_FILE}")
 
 
 
